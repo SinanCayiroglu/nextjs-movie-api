@@ -1,0 +1,52 @@
+"use client"
+import { useSearchParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
+
+const Search = () => {
+    const [movies, setMovies] = useState([]);
+    const [searchQuery,setSearchQuery] = useState([]);
+    const searchParams = useSearchParams()
+    const query = searchParams.get("search")
+    const handleSearch = async(query)=>{
+        const url = 'https://api.themoviedb.org/3/search/movie?query='+query+'&include_adult=false&language=en-US&page=1';
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YjM4ZTc0NmI4YzA2MDA0Nzk0NGQwZmVjOWRkMTAwMiIsInN1YiI6IjY2MzRhMTA1YzYxNmFjMDEyNTE5YmMxYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bRgwn4O30cZ3eO4qr_bv9PEqe5YyKBr_MMzkrXVxJkA'
+            }
+        };
+        
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            setMovies(data.results);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        handleSearch(searchQuery)
+    }
+    
+  return (
+    <div>
+
+    <form onSubmit={handleSubmit} action="/Search" className='flex relative'>
+        <input type="search" value={searchQuery} onChange={(e)=>{setSearchQuery(e.target.value)}} name='search' className='text-black w-full p-2 rounded-full'/>
+        <button type='submit' className='bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full p-2 absolute bottom-0 right-0'>Search</button>
+    </form>
+    <div>
+    {movies.map((movie) => (
+        <div key={movie.id}>
+        <h3>{movie.title}</h3>
+        <p>{movie.overview}</p>
+      </div>
+    ))}
+    </div>
+  </div>
+  )
+}
+
+export default Search
