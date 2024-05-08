@@ -3,9 +3,20 @@ import Image from 'next/image'
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
-const page = ({params}) => {
+interface PageProps {
+  params: { id: string }
+}
 
-    const [movie, setMovie] = useState(null);
+interface Movie {
+  title: string;
+  overview: string;
+  poster_path: string;
+  genres: { id: number; name: string }[];
+}
+
+const Page: React.FC<PageProps> = ({params}) => {
+
+    const [movie, setMovie] = useState<Movie | null>(null);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -31,12 +42,13 @@ const page = ({params}) => {
     <h1 className='text-3xl mb-4'>{movie.title}</h1>
     <p className='mb-6'>{movie.overview}</p>
     {movie.genres.map((genre, index) => (
-      <Link key={index}  href={"/components/Genres/"+genre.id} key={genre.id}>
+      <Link key={index}  href={"/components/Genres/"+genre.id} >
 <button className='m-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full p-2'>{genre.name}</button>
 </Link>))} 
     </div>
 </div>
+
   )
 }
 
-export default page
+export default Page

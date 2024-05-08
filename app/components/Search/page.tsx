@@ -4,14 +4,23 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
+interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string;
+  name:string;
+  genres: { id: number; name: string }[];
+}
+
 const Search = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const searchParams = useSearchParams();
   const query = searchParams.get("search");
 
   useEffect(() => {
-    const fetchMovie = async (query) => {
+    const fetchMovie = async (query:string) => {
       if (query) {
         const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
         const options = {
@@ -32,7 +41,9 @@ const Search = () => {
       }
     };
 
-    fetchMovie(query);
+    if (query) {
+      fetchMovie(query); // Call fetchMovie only if query is not null
+    }
   }, [query]);
 
   return (

@@ -2,8 +2,17 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
+interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string;
+  name:string;
+  genres: { id: number; name: string }[];
+}
+
 const Genres = () => {
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
     const url = 'https://api.themoviedb.org/3/genre/movie/list?language=en';

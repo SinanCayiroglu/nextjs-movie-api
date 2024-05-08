@@ -3,8 +3,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
-const Genres = ({params}) => {
-    const [movies, setMovies] = useState([]);
+interface PageProps {
+  params: { id: string }
+}
+
+interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string;
+  genres: { id: number; name: string }[];
+}
+
+
+const Genres: React.FC<PageProps> = ({params}) => {
+    const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
     const url = 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres='+params.id;
@@ -28,6 +41,10 @@ const Genres = ({params}) => {
 
     fetchData();
   }, [params.id]);
+  if (movies.length === 0) {
+    return <div>Loading...</div>; // Conditional rendering when 'movies' is empty
+  }
+
   return (
     <div className=' overflow-x-auto'>
     <h1 className='flex gap-5 justify-center py-1'>Discover Movies</h1>

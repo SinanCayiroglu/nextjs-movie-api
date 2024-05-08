@@ -1,12 +1,23 @@
 "use client"
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import Discover from '../Discover'
-import { useRouter } from 'next/router'
 
-const page = ({params}) => {
+interface PageProps {
+  params: { id: string }
+}
 
-    const [movie, setMovie] = useState(null);
+interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string;
+  name:string;
+  genres: { id: number; name: string }[];
+}
+
+const Page: React.FC<PageProps> = ({params}) => {
+
+    const [movie, setMovie] = useState<Movie| null>(null);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -24,7 +35,7 @@ const page = ({params}) => {
   }
 
   return (
-    <div className='flex items-center justify-center w-2/3 m-auto h-screen gap-5 p-10'>
+    <div className='flex items-center justify-center w-2/3 m-autP h-screen gap-5 p-10'>
         <div className="flex-1 w-1/2">
         <Image src={"https://image.tmdb.org/t/p/w500"+movie.poster_path} width={250} height={250} alt='movie'/>
         </div>
@@ -39,4 +50,4 @@ const page = ({params}) => {
   )
 }
 
-export default page
+export default Page
