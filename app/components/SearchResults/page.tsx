@@ -45,11 +45,7 @@ const SearchContent = () => {
       }
     };
 
-    useEffect(() => {
-      if (query) {
-        fetchMovie(query, page); // Call fetchMovie with both query and page
-      }
-    }, [query]);
+   
 
   return (
     <div>
