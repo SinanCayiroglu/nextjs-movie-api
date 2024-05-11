@@ -31,6 +31,7 @@ const Discover = () => {
   interface Movie{
     id:number;
     title:string;
+    name:string;
     poster_path:string;
   }
   return (
@@ -40,7 +41,7 @@ const Discover = () => {
       {movies.map((movie:Movie) => (
         <Link href={"/components/Tv/"+movie.id} key={movie.id}>
         <div style={{ width: '250px' }}>
-            <h3 className='text-center'>{movie.title}</h3>
+            <h3 className='text-center'>{movie.name}</h3>
             <div><Image src={"https://image.tmdb.org/t/p/w500"+movie.poster_path} width={250} height={250} alt='movie'/></div>
           </div> 
           </Link>

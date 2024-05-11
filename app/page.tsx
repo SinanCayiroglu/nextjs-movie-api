@@ -9,8 +9,6 @@ export default function Home() {
 
   return (
     <main>
-      <Navbar />
-      <Genres />
       <Discover />
       <Tv />
     </main>
