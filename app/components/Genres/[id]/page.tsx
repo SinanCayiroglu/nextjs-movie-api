@@ -6,18 +6,12 @@ import { useInView } from 'react-intersection-observer';
 import MoviesList from '../../MoviesList/MoviesList';
 import Pagination from '../../Pagination/Pagination';
 import InfiniteScroll from '../../InfiniteScroll/InfiniteScroll';
-
+import Movie from '../../Movies/Movies';
 interface PageProps {
   params: { id: string }
 }
 
-interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path: string;
-  genres: { id: number; name: string }[];
-}
+
 
 
 const Genres: React.FC<PageProps> = ({params}) => {

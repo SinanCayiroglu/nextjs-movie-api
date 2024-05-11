@@ -6,16 +6,8 @@ import React, { Suspense, useEffect, useState } from 'react'
 import Pagination from '../Pagination/Pagination';
 import InfiniteScroll from '../InfiniteScroll/InfiniteScroll';
 import MoviesList from '../MoviesList/MoviesList';
+import Movie from '../Movies/Movies';
 
-interface Movie {
-    id: number;
-    title: string;
-    overview: string;
-    poster_path: string;
-    name: string;
-    total_pages:number;
-    genres: { id: number; name: string }[];
-  }
   
   const SearchResult = () => {
     return (
@@ -64,7 +56,7 @@ const SearchContent = () => {
     <div className='flex flex-wrap gap-5 justify-center p-5'>
         <MoviesList movies={movies}/>
       </div>
-      <InfiniteScroll loadMore={() => fetchMovie(query, page)}/>
+      <InfiniteScroll loadMore={() => query && fetchMovie(query, page)}/>
         </div>
   )
 }

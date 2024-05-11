@@ -1,16 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
+import Movie from "../Movies/Movies"
 
-interface Movie {
-    id: number;
-    title: string;
-    overview: string;
-    poster_path: string;
-    name: string;
-    total_pages: number;
-    genres: { id: number; name: string }[];
-  }
   
   interface MoviesListProps {
     movies: Movie[];
